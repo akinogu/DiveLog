@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableHighlight } from 'react-native';
 import firebase from 'firebase';
 import CircleButton from '../elements/CircleButton';
-import { NavigationActions } from 'react-navigation'
+import { NavigationActions } from 'react-navigation';
 
 export default class SignupScreen extends React.Component {
   state = {
@@ -29,7 +29,7 @@ export default class SignupScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>
-          メンバー登録
+          アカウント登録
         </Text>
 
         <TextInput
@@ -50,7 +50,7 @@ export default class SignupScreen extends React.Component {
           secureTextEntry
         />
         <TouchableHighlight style={styles.button} onPress={this.handleSubmit.bind(this)} underlayColor="#c70f66" >
-          <Text style={styles.buttonTitle}>送信</Text>
+          <Text style={styles.buttonTitle}>登録</Text>
         </TouchableHighlight>
       </View>
     );

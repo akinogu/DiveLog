@@ -130,6 +130,35 @@ export default class MemoEditScreen extends React.Component {
     return timeWithSec.slice(0, 5);
   }
 
+  // Location / max-Length=40
+  onChangeLocation(e) {
+    this.setState({ location: e.slice(0, 40)});
+  }
+  // Point / max-Length=40
+  onChangePoint(e) {
+    this.setState({ point: e.slice(0, 40)});
+  }
+  // purpose / max-Length=40
+  onChangePurpose(e) {
+    this.setState({ purpose: e.slice(0, 40)});
+  }
+  // buddy / max-Length=40
+  onChangeBuddy(e) {
+    this.setState({ buddy: e.slice(0, 255)});
+  }
+  // condition / max-Length=40
+  onChangeCondition(e) {
+    this.setState({ condition: e.slice(0, 255)});
+  }
+  // note / max-Length=40
+  onChangeNote(e) {
+    this.setState({ note: e.slice(0, 255)});
+  }
+  // fish / max-Length=40
+  onChangeFish(e) {
+    this.setState({ fish: e.slice(0, 255)});
+  }
+
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="height" keyboardVerticalOffset={80}>
@@ -190,49 +219,49 @@ export default class MemoEditScreen extends React.Component {
           style={styles.baseTextStyle}
           placeholder='場所'
           value={this.state.location}
-          onChangeText={(location) => this.setState({location})}
+          onChangeText={(l) => this.onChangeLocation(l)}
           autoCapitalize='none'
         />
         <Input
           style={styles.baseTextStyle}
           placeholder='ポイント'
           value={this.state.point}
-          onChangeText={(point) => this.setState({point})}
+          onChangeText={(p) => this.onChangePoint(p)}
           autoCapitalize='none'
         />
         <Input
           style={styles.baseTextStyle}
           placeholder='目的'
           value={this.state.purpose}
-          onChangeText={(purpose) => this.setState({purpose})}
+          onChangeText={(p) => this.onChangePurpose(p)}
           autoCapitalize='none'
         />
         <Input
           style={styles.baseTextStyle}
           placeholder='バディ'
           value={this.state.buddy}
-          onChangeText={(buddy) => this.setState({buddy})}
+          onChangeText={(b) => this.onChangeBuddy(b)}
           autoCapitalize='none'
         />
         <Input
           style={styles.baseTextStyle}
           placeholder='コンディション'
           value={this.state.condition}
-          onChangeText={(condition) => this.setState({condition})}
+          onChangeText={(c) => this.onChangeCondition(c)}
           autoCapitalize='none'
         />
         <Input
           style={styles.baseTextStyle}
           placeholder='ノート'
           value={this.state.note}
-          onChangeText={(note) => this.setState({note})}
+          onChangeText={(n) => this.onChangeNote(n)}
           autoCapitalize='none'
         />
         <Input
           style={styles.baseTextStyle}
           placeholder='魚'
           value={this.state.fish}
-          onChangeText={(fish) => this.setState({fish})}
+          onChangeText={(f) => this.onChangeFish(f)}
           autoCapitalize='none'
         />
 

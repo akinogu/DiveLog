@@ -3,12 +3,32 @@ import { StyleSheet, View, Text, TextInput, TouchableHighlight, TouchableOpacity
 import firebase from 'firebase';
 import CircleButton from '../elements/CircleButton';
 import { NavigationActions } from 'react-navigation';
+import { Input } from 'react-native-elements';
+import { MessageBar, showMessage } from 'react-native-messages';
+
+function Message({ message }) {
+  if (message instanceof Error) {
+    // return error-styled message
+    console.log(message);
+    const errorMsg = (
+      <View style={styles.errorMessage}>
+        <Text style={styles.message}>{message.message}</Text>
+      </View>
+    )
+    return errorMsg;
+  } else {
+    // return normal message
+    return message;
+  }
+}
 
 export default class LoginScreen extends React.Component {
   state = {
     email: 'test@test.com',
     password: 'password',
+    errorMessage: '',
   }
+
 
   handleSubmit() {
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
@@ -21,7 +41,9 @@ export default class LoginScreen extends React.Component {
         });
         this.props.navigation.dispatch(resetAction);
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e);
+        showMessage(new Error('ログインに失敗しました。'));
       })
   }
 
@@ -32,6 +54,7 @@ export default class LoginScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <MessageBar messageComponent={Message} />
         <Text style={styles.title}>
           ログイン
         </Text>
@@ -105,4 +128,18 @@ const styles = StyleSheet.create({
   signupText: {
     fontSize: 16,
   },
+  errorMessage: {
+    backgroundColor: 'red',
+    opacity: 0.6,
+    color: '#fff',
+    height: 25,
+    paddingTop: 4,
+  },
+  message: {
+    flex: 1,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    color: '#fff',
+    fontSize: 16,
+  }
 });

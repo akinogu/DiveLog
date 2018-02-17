@@ -3,14 +3,42 @@ import { StyleSheet, View, Text, TextInput, TouchableHighlight } from 'react-nat
 import firebase from 'firebase';
 import CircleButton from '../elements/CircleButton';
 import { NavigationActions } from 'react-navigation';
+import { MessageBar, showMessage } from 'react-native-messages';
+
+function Message({ message }) {
+  if (message instanceof Error) {
+    // return error-styled message
+    console.log(message);
+    const errorMsg = (
+      <View style={styles.errorMessage}>
+        <Text style={styles.message}>{message.message}</Text>
+      </View>
+    )
+    return errorMsg;
+  } else {
+    // return normal message
+    const errorMsg = (
+      <View style={styles.errorMessage}>
+        <Text style={styles.message}>アカウント登録に失敗しました。</Text>
+      </View>
+    )
+    return errorMsg;
+  }
+}
 
 export default class SignupScreen extends React.Component {
   state = {
     email: '',
+    emailConfirm: '',
     password: '',
   }
 
   handleSubmit() {
+    if (this.state.email !== this.state.emailConfirm) {
+      showMessage(new Error('メールアドレスが異なります。'));
+      return;
+    }
+
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then((user) => {
         const resetAction = NavigationActions.reset({
@@ -21,13 +49,19 @@ export default class SignupScreen extends React.Component {
         });
         this.props.navigation.dispatch(resetAction);
       })
-      .catch(() => {
+      .catch((e) => {
+        let msg = '入力情報をご確認ください。';
+        if (e.code === 'auth/email-already-in-use') {
+          msg = 'メールアドレスはすでに登録されています。';
+        }
+        showMessage(new Error(msg));
       });
   }
 
   render() {
     return (
       <View style={styles.container}>
+        <MessageBar messageComponent={Message} />
         <Text style={styles.title}>
           アカウント登録
         </Text>
@@ -40,6 +74,16 @@ export default class SignupScreen extends React.Component {
           autoCorrect={false}
           placeholder="Email Address"
         />
+
+        <TextInput
+          style={styles.input}
+          value={this.state.emailConfirm}
+          onChangeText={(text) => this.setState({ emailConfirm: text })}
+          autoCapitalize="none"
+          autoCorrect={false}
+          placeholder="Email Address(確認用)"
+        />
+
         <TextInput
           style={styles.input}
           value={this.state.password}
@@ -89,5 +133,19 @@ const styles = StyleSheet.create({
   buttonTitle: {
     color: '#fff',
     fontSize: 18,
+  },
+  errorMessage: {
+    backgroundColor: 'red',
+    opacity: 0.6,
+    color: '#fff',
+    height: 25,
+    paddingTop: 4,
+  },
+  message: {
+    flex: 1,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    color: '#fff',
+    fontSize: 16,
   },
 });

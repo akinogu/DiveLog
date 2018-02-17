@@ -8,13 +8,19 @@ import fontAwesome from '../../assets/fonts/fontawesome-webfont.ttf';
 
 export default class MemoCreateScreen extends React.Component {
   state = {
-    body: '',
-    isDateTimePickerVisible: false,
-    isStartTimePickerVisible: false,
-    isEndTimePickerVisible: false,
     date: '',
     startTime: '',
     endTime: '',
+    location: '',
+    point: '',
+    purpose: '',
+    buddy: '',
+    condition: '',
+    note: '',
+    fish: '',
+    isDateTimePickerVisible: false,
+    isStartTimePickerVisible: false,
+    isEndTimePickerVisible: false,
   }
 
   handleSubmit() {
@@ -24,6 +30,13 @@ export default class MemoCreateScreen extends React.Component {
       date: this.state.date,
       startTime: this.state.startTime,
       endTime: this.state.endTime,
+      location: this.state.location,
+      point: this.state.point,
+      purpose: this.state.purpose,
+      buddy: this.state.buddy,
+      condition: this.state.condition,
+      note: this.state.note,
+      fish: this.state.fish,
       createdOn: new Date(),
     })
     .then(() => {
@@ -145,42 +158,56 @@ export default class MemoCreateScreen extends React.Component {
         <Input
           style={styles.baseTextStyle}
           placeholder='場所'
+          value={this.state.location}
+          onChangeText={(location) => this.setState({location})}
           shake={true}
           autoCapitalize={false}
         />
         <Input
           style={styles.baseTextStyle}
           placeholder='ポイント'
+          value={this.state.point}
+          onChangeText={(point) => this.setState({point})}
           shake={true}
           autoCapitalize={false}
         />
         <Input
           style={styles.baseTextStyle}
-          placeholder='目的（=>プルダウン）'
+          placeholder='目的'
+          value={this.state.purpose}
+          onChangeText={(purpose) => this.setState({purpose})}
           shake={true}
           autoCapitalize={false}
         />
         <Input
           style={styles.baseTextStyle}
           placeholder='バディ'
+          value={this.state.buddy}
+          onChangeText={(buddy) => this.setState({buddy})}
           shake={true}
           autoCapitalize={false}
         />
         <Input
           style={styles.baseTextStyle}
           placeholder='コンディション'
+          value={this.state.condition}
+          onChangeText={(condition) => this.setState({condition})}
           shake={true}
           autoCapitalize={false}
         />
         <Input
           style={styles.baseTextStyle}
           placeholder='ノート'
+          value={this.state.note}
+          onChangeText={(note) => this.setState({note})}
           shake={true}
           autoCapitalize={false}
         />
         <Input
           style={styles.baseTextStyle}
           placeholder='魚'
+          value={this.state.fish}
+          onChangeText={(fish) => this.setState({fish})}
           shake={true}
           autoCapitalize={false}
         />

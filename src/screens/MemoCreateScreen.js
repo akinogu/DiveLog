@@ -40,18 +40,22 @@ export default class MemoCreateScreen extends React.Component {
   }
 
   handleSubmit() {
+    let errorData = {
+      date: '',
+      location:'',
+    }
 
-    if (!this.state.date) {
-      this.setState({ dateErrorMsg: '日付を入力してください'})
-    } else {
-      this.setState({ dateErrorMsg: ''})
+    if (!this.state.date || this.state.date.length === 0) {
+      errorData.date = '日付を入力してください';
     }
-    if (!this.location) {
-      this.setState({ locationErrorMsg: '場所を入力してください'})
-    } else {
-      this.setState({ locationErrorMsg: ''})
+    if (!this.state.location || this.state.location.length === 0) {
+      errorData.location = '場所を入力してください';
     }
-    if (this.state.dateErrorMsg.length !== 0 || this.state.locationErrorMsg !== 0) {
+    if (errorData.date.length !== 0 || errorData.location.length !== 0) {
+      this.setState({
+        dateErrorMsg: errorData.date,
+        locationErrorMsg: errorData.location,
+      })
       return;
     }
     const { currentUser } = firebase.auth();

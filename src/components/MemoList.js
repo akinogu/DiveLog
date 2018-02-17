@@ -10,14 +10,24 @@ const dateToString = (date) => {
 export default class MemoList extends React.Component {
   renderMemo({item}) {
     return (
-      <TouchableHighlight onPress={() => {this.props.navigation.navigate('MemoDetail', { memo: item }); }}>
-        <View style={styles.monoListItem}>
-          <Text style={styles.monoTitle}>
-            {item.body.substring(0, 10)}
-          </Text>
-          <Text style={styles.monoDate}>
-            {dateToString(item.createdOn)}
-          </Text>
+      <TouchableHighlight onPress={() => {this.props.navigation.navigate('MemoDetail', { log: item }); }}>
+        <View style={styles.listItem}>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.location}>
+              {item.location}
+            </Text>
+            <Text style={styles.point}>
+              {item.point}
+            </Text>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.diveDate}>
+              {item.date}
+            </Text>
+            <Text style={styles.time}>
+              {item.startTime + ' ~ ' + item.endTime }
+            </Text>
+          </View>
         </View>
       </TouchableHighlight>
     );
@@ -26,7 +36,7 @@ export default class MemoList extends React.Component {
   render() {
     return (
       <View style={styles.monoList}>
-        <FlatList data={this.props.memoList} renderItem={this.renderMemo.bind(this)} />
+        <FlatList data={this.props.divelogList} renderItem={this.renderMemo.bind(this)} />
       </View>
     );
   }
@@ -37,18 +47,32 @@ const styles = StyleSheet.create({
     width: '100%',
     flex: 1,
   },
-  monoListItem: {
+  listItem: {
     padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-    backgroundColor: '#fff',
+    paddingLeft: 24,
+    justifyContent: 'center',
   },
-  monoTitle: {
-    fontSize: 18,
+  location: {
+    fontSize: 24,
     marginBottom: 4,
   },
-  monoDate: {
-    fontSize: 12,
+  point: {
+    fontSize: 18,
+    marginLeft: 20,
+    paddingTop: 4,
+  },
+  diveDate: {
+    fontSize: 14,
     color: '#a2a2a2',
   },
+  time: {
+    fontSize: 14,
+    marginLeft: 20,
+    color: '#a2a2a2',
+  },
+  timeWrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  }
 });

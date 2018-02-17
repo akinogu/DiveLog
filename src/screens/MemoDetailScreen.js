@@ -10,36 +10,76 @@ const dateToString = (date) => {
 
 export default class MemoDetailScreen extends React.Component {
   state = {
-    memo: {},
+    log: {},
   }
 
   componentWillMount() {
     console.log(this.props.navigation);
     const params = this.props.navigation.state.params;
     this.setState({
-      memo: params.memo || '',
+      log: params.log || '',
     })
   }
 
-  returnMemo(memo) {
-    this.setState({ memo });
+  returnMemo(log) {
+    this.setState({ log });
   }
   render() {
-    const { memo } = this.state;
+    const { log } = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.memoHeader}>
-          <Text style={styles.memoHeaderTitle}>{this.state.memo.body ? this.state.memo.body.substring(0, 10) : ''}</Text>
-          <Text style={styles.memoHeaderDate}>{dateToString(this.state.memo.createdOn)}</Text>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.memoHeaderTitle}>
+              {this.state.log.location ? this.state.log.location.substring(0, 10) : ''}
+            </Text>
+            <Text style={styles.headerTitleRight}>{this.state.log.point ? ('  ' + this.state.log.point) : ''}</Text>
+          </View>
+          <View style={{flexDirection: 'row', marginTop: 4,}}>
+            <Text style={styles.memoHeaderDate}>
+              {this.state.log.date}
+            </Text>
+            <Text style={styles.headerTime}>
+              {'  ' + log.startTime + ' ~ ' + log.endTime }
+            </Text>
+          </View>
         </View>
 
         <View style={styles.memoContent}>
-          <Text style={styles.memoBody}>{this.state.memo.body}</Text>
+          <View style={styles.listItem}>
+            <Text style={styles.itemTitle}>場所</Text>
+            <Text style={styles.itemContent}>{this.state.log.location}</Text>
+          </View>
+          <View style={styles.listItem}>
+            <Text style={styles.itemTitle}>ポイント</Text>
+            <Text style={styles.itemContent}>{this.state.log.point}</Text>
+          </View>
+          <View style={styles.listItem}>
+            <Text style={styles.itemTitle}>目的</Text>
+            <Text style={styles.itemContent}>{this.state.log.purpose}</Text>
+          </View>
+          <View style={styles.listItem}>
+            <Text style={styles.itemTitle}>バディ</Text>
+            <Text style={styles.itemContent}>{this.state.log.buddy}</Text>
+          </View>
+          <View style={styles.listItem}>
+            <Text style={styles.itemTitle}>コンディション</Text>
+            <Text style={styles.itemContent}>{this.state.log.condition}</Text>
+          </View>
+          <View style={styles.listItem}>
+            <Text style={styles.itemTitle}>ノート</Text>
+            <Text style={styles.itemContent}>{this.state.log.note}</Text>
+          </View>
+          <View style={styles.listItem}>
+            <Text style={styles.itemTitle}>魚</Text>
+            <Text style={styles.itemContent}>{this.state.log.fish}</Text>
+          </View>
+
         </View>
         <CircleButton
           color="white"
           style={styles.editButton}
-          onPress={() => { this.props.navigation.navigate('MemoEdit', { ...memo, returnMemo: this.returnMemo.bind(this) }); }}
+          onPress={() => { this.props.navigation.navigate('MemoEdit', { ...log, returnMemo: this.returnMemo.bind(this) }); }}
         >{'\uf040'}</CircleButton>
       </View>
     );
@@ -58,14 +98,36 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   memoHeaderTitle: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 4,
+    // marginTop: 4,
+  },
+  headerTitleRight: {
+    fontWeight: 'bold',
+    color: '#fff',
+    marginTop: 4,
+    marginLeft: 12,
   },
   memoHeaderDate: {
     color: '#fff',
     fontSize: 12,
+  },
+  listItem: {
+    marginTop: 16,
+  },
+  headerTime: {
+    color: '#fff',
+    fontSize: 12,
+    marginLeft: 12,
+  },
+  itemTitle: {
+    fontSize: 12,
+    color: 'gray',
+  },
+  itemContent: {
+    fontSize: 18,
+    marginLeft: 8,
   },
   memoContent: {
     paddingTop: 30,

@@ -6,20 +6,21 @@ import CircleButton from '../elements/CircleButton';
 
 export default class MemoListScreen extends React.Component {
   state = {
-    memoList: [],
+    divelogList: [],
   }
   componentWillMount() {
     const { currentUser } = firebase.auth();
     const db = firebase.firestore();
 
-    db.collection(`users/${currentUser.uid}/memos`)
+    db.collection(`users/${currentUser.uid}/divelogs`)
       .onSnapshot((snapshot) => {
-        const memoList = [];
-
+        const divelogList = [];
+        console.log("snapshot");
+        console.log(snapshot);
         snapshot.forEach((doc) => {
-          memoList.push({ ...doc.data(), key: doc.id });
+          divelogList.push({ ...doc.data(), key: doc.id });
         })
-        this.setState({ memoList })
+        this.setState({ divelogList })
       })
   }
 
@@ -30,7 +31,7 @@ export default class MemoListScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <MemoList memoList={this.state.memoList} navigation={this.props.navigation} />
+        <MemoList divelogList={this.state.divelogList} navigation={this.props.navigation} />
         <CircleButton onPress={this.handleOnPress.bind(this)}>{'\uf067'}</CircleButton>
       </View>
     );

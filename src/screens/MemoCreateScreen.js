@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, KeyboardAvoidingView, TouchableOpacity, TextInput, Text, } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView, TouchableOpacity, TextInput, Text } from 'react-native';
 import { Input } from 'react-native-elements';
 import firebase from 'firebase';
 import CircleButton from '../elements/CircleButton';
@@ -82,12 +82,6 @@ export default class MemoCreateScreen extends React.Component {
     this.setState({ startTime: this.dateToStringTime(time)});
   }
 
-  dateToStringTime(date) {
-    const timeWithSec = date.toString().split(' ')[4];
-    const time = timeWithSec.slice(0, 5);
-    return time
-  }
-
   // EndTime
   _showEndTimePicker = () => {
     this.setState({ isEndTimePickerVisible: true });
@@ -104,6 +98,10 @@ export default class MemoCreateScreen extends React.Component {
     this.setState({ endTime: this.dateToStringTime(time)});
   };
 
+  dateToStringTime(date) {
+    const timeWithSec = date.toString().split(' ')[4];
+    return timeWithSec.slice(0, 5);
+  }
 
   render() {
     return (
@@ -250,8 +248,8 @@ const styles = StyleSheet.create({
   },
   circleButtonTitle: {
     fontFamily: 'FontAwesome',
-    fontSize: 24,
-    lineHeight: 24,
+    fontSize: 20,
+    lineHeight: 20,
   },
 });
 

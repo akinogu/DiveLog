@@ -159,7 +159,7 @@ export default class MemoCreateScreen extends React.Component {
           value={this.state.location}
           onChangeText={(location) => this.setState({location})}
           shake={true}
-          autoCapitalize={false}
+          autoCapitalize='none'
         />
         <Input
           style={styles.baseTextStyle}
@@ -167,7 +167,7 @@ export default class MemoCreateScreen extends React.Component {
           value={this.state.point}
           onChangeText={(point) => this.setState({point})}
           shake={true}
-          autoCapitalize={false}
+          autoCapitalize='none'
         />
         <Input
           style={styles.baseTextStyle}
@@ -175,7 +175,7 @@ export default class MemoCreateScreen extends React.Component {
           value={this.state.purpose}
           onChangeText={(purpose) => this.setState({purpose})}
           shake={true}
-          autoCapitalize={false}
+          autoCapitalize='none'
         />
         <Input
           style={styles.baseTextStyle}
@@ -183,7 +183,7 @@ export default class MemoCreateScreen extends React.Component {
           value={this.state.buddy}
           onChangeText={(buddy) => this.setState({buddy})}
           shake={true}
-          autoCapitalize={false}
+          autoCapitalize='none'
         />
         <Input
           style={styles.baseTextStyle}
@@ -191,7 +191,7 @@ export default class MemoCreateScreen extends React.Component {
           value={this.state.condition}
           onChangeText={(condition) => this.setState({condition})}
           shake={true}
-          autoCapitalize={false}
+          autoCapitalize='none'
         />
         <Input
           style={styles.baseTextStyle}
@@ -199,7 +199,7 @@ export default class MemoCreateScreen extends React.Component {
           value={this.state.note}
           onChangeText={(note) => this.setState({note})}
           shake={true}
-          autoCapitalize={false}
+          autoCapitalize='none'
         />
         <Input
           style={styles.baseTextStyle}
@@ -207,7 +207,7 @@ export default class MemoCreateScreen extends React.Component {
           value={this.state.fish}
           onChangeText={(fish) => this.setState({fish})}
           shake={true}
-          autoCapitalize={false}
+          autoCapitalize='none'
         />
 
         {/* <Input

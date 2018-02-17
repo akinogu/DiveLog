@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, KeyboardAvoidingView, TextInput, Text } from 'react-native';
+import { StyleSheet, View, KeyboardAvoidingView, TextInput, Text, TouchableHighlight } from 'react-native';
 import { Input } from 'react-native-elements';
 import firebase from 'firebase';
 import CircleButton from '../elements/CircleButton';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import fontAwesome from '../../assets/fonts/fontawesome-webfont.ttf';
 
+let _this = null;
 export default class MemoEditScreen extends React.Component {
   state = {
     date: '',
@@ -19,6 +20,18 @@ export default class MemoEditScreen extends React.Component {
     note: '',
     fish: '',
     key: '',
+  }
+
+  static navigationOptions={
+    headerRight: (
+      <TouchableHighlight onPress={() => _this.handlePress()}>
+        <Text style={{color: '#fff', marginRight: 18, fontWeight: 'bold', paddingTop: 6}}>SAVE</Text>
+      </TouchableHighlight>
+    ),
+  }
+
+  componentDidMount() {
+    _this = this;
   }
 
   componentWillMount() {
@@ -162,15 +175,6 @@ export default class MemoEditScreen extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="height" keyboardVerticalOffset={80}>
-        {/* <TextInput
-          style={styles.memoEditInput}
-          value={this.state.location}
-          // multiline
-          onChangeText={(text) => {this.setState({ body: text })}}
-          underlineColorAndroid="transparent"
-          textAlignVertical="top"
-        /> */}
-
         <DateTimePicker
           isVisible={this.state.isDateTimePickerVisible}
           customDatePickerIOS={null}
@@ -265,9 +269,9 @@ export default class MemoEditScreen extends React.Component {
           autoCapitalize='none'
         />
 
-        <CircleButton
+        {/* <CircleButton
           onPress={this.handlePress.bind(this)}
-        >{'\uf00c'}</CircleButton>
+        >{'\uf00c'}</CircleButton> */}
       </KeyboardAvoidingView>
     );
   }

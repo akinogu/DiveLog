@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   memoContent: {
-    paddingTop: 24,
+    paddingTop: 20,
     paddingRight: 20,
     paddingLeft: 20,
     paddingBottom: 20,

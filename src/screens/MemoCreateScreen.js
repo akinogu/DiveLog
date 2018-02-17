@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, KeyboardAvoidingView, TouchableOpacity, TextInput, Text } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView, TouchableOpacity, TouchableHighlight, TextInput, Text } from 'react-native';
 import { Input } from 'react-native-elements';
 import firebase from 'firebase';
 import CircleButton from '../elements/CircleButton';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import fontAwesome from '../../assets/fonts/fontawesome-webfont.ttf';
 
+let _this = null;
 export default class MemoCreateScreen extends React.Component {
   state = {
     date: '',
@@ -21,6 +22,19 @@ export default class MemoCreateScreen extends React.Component {
     isDateTimePickerVisible: false,
     isStartTimePickerVisible: false,
     isEndTimePickerVisible: false,
+  }
+
+  static navigationOptions={
+    headerRight: (
+      <TouchableHighlight onPress={(e) => _this.handleSubmit()}>
+        <Text style={{color: '#fff', marginRight: 18, fontWeight: 'bold', paddingTop: 6}}>SAVE</Text>
+      </TouchableHighlight>
+    ),
+  }
+
+  // HACK: このやり方はあまりよくなさげ....
+  componentDidMount() {
+    _this = this;
   }
 
   handleSubmit() {
@@ -133,7 +147,7 @@ export default class MemoCreateScreen extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView style={styles.container} behavior="height" keyboardVerticalOffset={80}>
+      <KeyboardAvoidingView style={styles.container}>
         <DateTimePicker
           isVisible={this.state.isDateTimePickerVisible}
           customDatePickerIOS={null}
@@ -245,7 +259,7 @@ export default class MemoCreateScreen extends React.Component {
           autoCapitalize={false}
         /> */}
 
-        <CircleButton onPress={this.handleSubmit.bind(this)}>{'\uf00c'}</CircleButton>
+        {/* <CircleButton onPress={this.handleSubmit.bind(this)}>{'\uf00c'}</CircleButton> */}
       </KeyboardAvoidingView>
     );
   }
@@ -279,5 +293,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 20,
   },
+  saveBtn: {
+    color: '#fff',
+    marginRight: 10,
+    fontWeight: 'bold',
+  }
 });
 

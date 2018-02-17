@@ -14,9 +14,10 @@ export default class MemoDetailScreen extends React.Component {
   }
 
   componentWillMount() {
-    const { params } = this.props.navigation.state;
+    console.log(this.props.navigation);
+    const params = this.props.navigation.state.params;
     this.setState({
-      memo: params.memo,
+      memo: params.memo || '',
     })
   }
 

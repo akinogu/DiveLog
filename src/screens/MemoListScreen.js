@@ -24,7 +24,7 @@ export default class MemoListScreen extends React.Component {
   }
 
   handleOnPress() {
-    this.props.navigation.navigate('MemoDetail');
+    this.props.navigation.navigate('MemoCreate');
   }
 
   render() {

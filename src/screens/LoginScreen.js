@@ -35,7 +35,6 @@ export default class LoginScreen extends React.Component {
         <Text style={styles.title}>
           ログイン
         </Text>
-
         <TextInput
           style={styles.input}
           value={this.state.email}

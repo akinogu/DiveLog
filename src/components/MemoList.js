@@ -10,7 +10,7 @@ const dateToString = (date) => {
 export default class MemoList extends React.Component {
   renderMemo({item}) {
     return (
-      <TouchableHighlight onPress={() => {this.props.navigation.navigate('MemoDetail', { log: item }); }}>
+      <TouchableHighlight underlayColor="transparent" onPress={() => {this.props.navigation.navigate('MemoDetail', { log: item }); }}>
         <View style={styles.listItem}>
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.location}>

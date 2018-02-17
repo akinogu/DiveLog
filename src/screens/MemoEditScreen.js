@@ -19,6 +19,8 @@ export default class MemoEditScreen extends React.Component {
     condition: '',
     note: '',
     fish: '',
+    dateErrorMsg: '',
+    locationErrorMsg: '',
     key: '',
   }
 
@@ -53,6 +55,19 @@ export default class MemoEditScreen extends React.Component {
   }
 
   handlePress() {
+    if (!this.state.date) {
+      this.setState({ dateErrorMsg: '日付を入力してください'})
+    } else {
+      this.setState({ dateErrorMsg: ''})
+    }
+    if (!this.location) {
+      this.setState({ locationErrorMsg: '場所を入力してください'})
+    } else {
+      this.setState({ locationErrorMsg: ''})
+    }
+    if (this.state.dateErrorMsg.length !== 0 || this.state.locationErrorMsg !== 0) {
+      return;
+    }
     const { currentUser } = firebase.auth();
     const db = firebase.firestore();
     const newDate = new Date();
@@ -190,6 +205,9 @@ export default class MemoEditScreen extends React.Component {
             <Text style={styles.circleButtonTitle} onPress={this._showDateTimePicker}>{'\uf073'}</Text>
           }
         />
+        {(this.state.dateErrorMsg || this.state.dateErrorMsg.length !== 0) ? (
+          <Text style={styles.errorMsg}>{this.state.dateErrorMsg}</Text>
+        ) : null}
 
         <DateTimePicker
           mode='time'
@@ -226,6 +244,10 @@ export default class MemoEditScreen extends React.Component {
           onChangeText={(l) => this.onChangeLocation(l)}
           autoCapitalize='none'
         />
+        {(this.state.locationErrorMsg || this.state.locationErrorMsg.length !== 0) ? (
+          <Text style={styles.errorMsg}>{this.state.locationErrorMsg}</Text>
+        ) : null}
+
         <Input
           style={styles.baseTextStyle}
           placeholder='ポイント'
@@ -286,6 +308,10 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     // 追加
     paddingTop: 40,
+  },
+  errorMsg: {
+    color: 'red',
+    marginTop: 2,
   },
   baseTextStyle: {
     flex:1,

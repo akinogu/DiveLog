@@ -22,6 +22,8 @@ export default class MemoCreateScreen extends React.Component {
     isDateTimePickerVisible: false,
     isStartTimePickerVisible: false,
     isEndTimePickerVisible: false,
+    dateErrorMsg: '',
+    locationErrorMsg: '',
   }
 
   static navigationOptions={
@@ -38,6 +40,20 @@ export default class MemoCreateScreen extends React.Component {
   }
 
   handleSubmit() {
+
+    if (!this.state.date) {
+      this.setState({ dateErrorMsg: '日付を入力してください'})
+    } else {
+      this.setState({ dateErrorMsg: ''})
+    }
+    if (!this.location) {
+      this.setState({ locationErrorMsg: '場所を入力してください'})
+    } else {
+      this.setState({ locationErrorMsg: ''})
+    }
+    if (this.state.dateErrorMsg.length !== 0 || this.state.locationErrorMsg !== 0) {
+      return;
+    }
     const { currentUser } = firebase.auth();
     const db = firebase.firestore();
     db.collection(`users/${currentUser.uid}/divelogs`).add({
@@ -164,6 +180,9 @@ export default class MemoCreateScreen extends React.Component {
             <Text style={styles.circleButtonTitle} onPress={this._showDateTimePicker}>{'\uf073'}</Text>
           }
         />
+        {(this.state.dateErrorMsg || this.state.dateErrorMsg.length !== 0) ? (
+          <Text style={styles.errorMsg}>{this.state.dateErrorMsg}</Text>
+        ) : null}
 
         <DateTimePicker
           mode='time'
@@ -202,7 +221,13 @@ export default class MemoCreateScreen extends React.Component {
           onChangeText={(l) => this.onChangeLocation(l)}
           shake={true}
           autoCapitalize='none'
+          // errorStyle={{ color : 'red'}}
+          // errorMessage='nfjdafdafjklj'
         />
+        {(this.state.locationErrorMsg || this.state.locationErrorMsg.length !== 0) ? (
+          <Text style={styles.errorMsg}>{this.state.locationErrorMsg}</Text>
+        ) : null}
+
         <Input
           style={styles.baseTextStyle}
           placeholder='ポイント'
@@ -274,6 +299,10 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     // 追加
     paddingTop: 40,
+  },
+  errorMsg: {
+    color: 'red',
+    marginTop: 2,
   },
   memoEditInput: {
     backgroundColor: '#fff',

@@ -24,8 +24,8 @@ function Message({ message }) {
 
 export default class LoginScreen extends React.Component {
   state = {
-    email: 'test@test.com',
-    password: 'password',
+    email: '',
+    password: '',
     errorMessage: '',
   }
 

@@ -15,8 +15,7 @@ export default class MemoListScreen extends React.Component {
     db.collection(`users/${currentUser.uid}/divelogs`)
       .onSnapshot((snapshot) => {
         const divelogList = [];
-        console.log("snapshot");
-        console.log(snapshot);
+
         snapshot.forEach((doc) => {
           divelogList.push({ ...doc.data(), key: doc.id });
         })
